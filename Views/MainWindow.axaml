@@ -1,0 +1,74 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="using:GestionVideojuegos.Models"
+        x:Class="GestionVideojuegos.Views.MainWindow"
+        Title="Gestión de Videojuegos" Width="1050" Height="690"
+        MinWidth="820" MinHeight="570" Background="#0F172A">
+  <Grid RowDefinitions="Auto,*,Auto" Margin="24" RowSpacing="18">
+    <StackPanel Grid.Row="0" Spacing="4">
+      <TextBlock Text="GESTIÓN DE VIDEOJUEGOS" FontSize="28" FontWeight="Bold" Foreground="#F8FAFC"/>
+      <TextBlock Text="Registro, consulta y administración con Avalonia UI y SQLite"
+                 Foreground="#94A3B8" FontSize="13"/>
+    </StackPanel>
+
+    <Grid Grid.Row="1" ColumnDefinitions="320,*" ColumnSpacing="18">
+      <Border Grid.Column="0" Background="#1E293B" CornerRadius="12" Padding="18">
+        <StackPanel Spacing="9">
+          <TextBlock Text="Datos del videojuego" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8"/>
+          <TextBlock Text="Nombre" Foreground="#CBD5E1"/>
+          <TextBox x:Name="TxtNombre" Watermark="Ej. Minecraft"/>
+          <TextBlock Text="Género" Foreground="#CBD5E1"/>
+          <TextBox x:Name="TxtGenero" Watermark="Ej. Aventura"/>
+          <TextBlock Text="Plataforma" Foreground="#CBD5E1"/>
+          <TextBox x:Name="TxtPlataforma" Watermark="Ej. PC"/>
+          <TextBlock Text="Precio (COP)" Foreground="#CBD5E1"/>
+          <TextBox x:Name="TxtPrecio" Watermark="Ej. 50000"/>
+          <TextBlock Text="Selecciona un registro para editarlo o eliminarlo."
+                     Foreground="#94A3B8" TextWrapping="Wrap" FontSize="12" Margin="0,6,0,4"/>
+          <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+            <Button Grid.Row="0" Grid.Column="0" Content="Registrar" Click="Registrar_Click"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Actualizar" Click="Actualizar_Click"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="0" Content="Eliminar" Click="Eliminar_Click"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="Limpiar" Click="Limpiar_Click"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+          </Grid>
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" Padding="18">
+        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="12">
+          <DockPanel Grid.Row="0">
+            <Button DockPanel.Dock="Right" Content="Recargar" Click="Recargar_Click"/>
+            <TextBlock Text="Videojuegos registrados" VerticalAlignment="Center"
+                       FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+          </DockPanel>
+          <Grid Grid.Row="1" ColumnDefinitions="2*,*,*,*" ColumnSpacing="7">
+            <TextBlock Text="Nombre" Foreground="#94A3B8" FontWeight="Bold"/>
+            <TextBlock Grid.Column="1" Text="Género" Foreground="#94A3B8" FontWeight="Bold"/>
+            <TextBlock Grid.Column="2" Text="Plataforma" Foreground="#94A3B8" FontWeight="Bold"/>
+            <TextBlock Grid.Column="3" Text="Precio COP" Foreground="#94A3B8" FontWeight="Bold"/>
+          </Grid>
+          <ListBox x:Name="ListaVideojuegos" Grid.Row="2" Background="#0F172A"
+                   SelectionChanged="ListaVideojuegos_SelectionChanged">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="models:Videojuego">
+                <Grid ColumnDefinitions="2*,*,*,*" ColumnSpacing="7" Margin="5,7">
+                  <TextBlock Text="{Binding Nombre}" Foreground="#F8FAFC" TextTrimming="CharacterEllipsis"/>
+                  <TextBlock Grid.Column="1" Text="{Binding Genero}" Foreground="#CBD5E1" TextTrimming="CharacterEllipsis"/>
+                  <TextBlock Grid.Column="2" Text="{Binding Plataforma}" Foreground="#CBD5E1" TextTrimming="CharacterEllipsis"/>
+                  <TextBlock Grid.Column="3" Text="{Binding PrecioVisible}" Foreground="#86EFAC"/>
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </Grid>
+      </Border>
+    </Grid>
+    <TextBlock x:Name="TxtMensaje" Grid.Row="2" Text="Aplicación preparada."
+               Foreground="#86EFAC" TextWrapping="Wrap"/>
+  </Grid>
+</Window>
+
